@@ -1,6 +1,8 @@
-import React from 'react';
-import { View } from 'react-native';
+import React, { useState } from 'react';
+import { Switch, Text, TextInput, View } from 'react-native';
+import AppPicker from './app/components/AppPicker';
 import AppText from './app/components/AppText';
+import AppTextInput from './app/components/AppTextInput';
 import Card from './app/components/Card';
 import Icon from './app/components/Icon';
 import ListItem from './app/components/ListItem';
@@ -12,17 +14,19 @@ import ViewImageScreen from './app/screens/ViewImageScreen';
 import WelcomeScreen from './app/screens/WelcomeScreen';
 
 export default function App() {
+  const [firstName, setFirstName] = useState('');
+  const [isNew, setIsNew] = useState(true);
+
   return (
-  //  <View style={{
-  //    backgroundColor: '#f8f4f4',
-  //    padding: 20,
-  //    paddingTop: 100
-  //  }}>
-  //   <Card 
-  //     title='Couch in good condition for sale.'
-  //     subTitle='&#8358;50000'
-  //     image={require('./app/assets/couch.jpg')} />
-  //  </View>
-   <AccountScreen />
+
+    <Screen>
+      <AppPicker 
+        icon='apps'
+        placeholder='Category'
+      />
+      <AppTextInput 
+        icon='email'
+        placeholder='Username' />
+    </Screen>
   );
 }
