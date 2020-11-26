@@ -13,9 +13,23 @@ import MessagesScreen from './app/screens/MessagesScreen';
 import ViewImageScreen from './app/screens/ViewImageScreen';
 import WelcomeScreen from './app/screens/WelcomeScreen';
 
+const categories = [
+  {
+    label: 'Furniture',
+    value: 1
+  },
+  {
+    label: 'Clothing',
+    value: 2
+  },
+  {
+    label: 'Games',
+    value: 3
+  },
+]
+
 export default function App() {
-  const [firstName, setFirstName] = useState('');
-  const [isNew, setIsNew] = useState(true);
+  const [category, setCategory] = useState(categories[2]);
 
   return (
 
@@ -23,6 +37,9 @@ export default function App() {
       <AppPicker 
         icon='apps'
         placeholder='Category'
+        items={categories}
+        selectedItem={category}
+        onSelectItem={item => setCategory(item)}
       />
       <AppTextInput 
         icon='email'

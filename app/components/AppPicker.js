@@ -1,18 +1,45 @@
-import React from 'react'
-import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native'
+import React, {useState} from 'react'
+import { View, StyleSheet, TouchableWithoutFeedback, Modal, Button, FlatList } from 'react-native'
 import {MaterialCommunityIcons} from '@expo/vector-icons'
 
 import defaultStyles from '../config/styles'
 import AppText from './AppText'
+import Screen from './Screen'
+import ListItem from './ListItem'
+import PickerItem from './PickerItem'
 
-export default function AppPicker({icon, placeholder}) {
+export default function AppPicker({icon, items, onSelectItem, placeholder, selectedItem}) {
+
+  const [modalVisible, setModalVisible] = useState(false);  
+
   return (
-    <TouchableWithoutFeedback>
-      <View style={styles.container}>
-        {icon && <MaterialCommunityIcons name={icon} size={20} color={defaultStyles.colors.darkGrey} style={styles.icon} />}
-        <AppText>{placeholder}</AppText>
-      </View>
-    </TouchableWithoutFeedback>
+    <>
+      <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
+        <View style={styles.container}>
+          {icon && <MaterialCommunityIcons name={icon} size={20} color={defaultStyles.colors.darkGrey} style={styles.icon} />}
+          <AppText style={styles.text}>{selectedItem ? selectedItem.label : placeholder}</AppText>
+          <MaterialCommunityIcons name='chevron-down' size={20} color={defaultStyles.colors.darkGrey} />
+        </View>
+      </TouchableWithoutFeedback>
+      <Modal visible={modalVisible} animationType='slide'>
+        <Screen>
+          <Button title='Close' onPress={() => setModalVisible(false)} />
+          <FlatList
+            data={items}
+            keyExtractor={item => item.value.toString()}
+            renderItem={({item}) => (
+              <PickerItem 
+                onPress={() => {
+                  setModalVisible(false);
+                  onSelectItem(item);
+                }}
+                label={item.label}
+              />
+            )}
+           />
+        </Screen>
+      </Modal>
+    </>
   )
 }
 
@@ -28,5 +55,8 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 10
+  },
+  text: {
+    flex: 1
   }
 })
