@@ -4,7 +4,7 @@ import AppPicker from '../AppPicker';
 import ErrorMessage from './ErrorMessage';
 
 export default function AppFormPicker({ icon, name, items, numberOfColumns, PickerItemComponent, placeholder, width}) {
-  const { errors, selectedFieldValue, touched, values } = useFormikContext();
+  const { errors, setFieldValue, touched, values } = useFormikContext();
 
   return (
     <>
@@ -14,7 +14,7 @@ export default function AppFormPicker({ icon, name, items, numberOfColumns, Pick
         placeholder={placeholder}
         PickerItemComponent={PickerItemComponent}
         icon={icon}
-        onSelectItem={(item) => selectedFieldValue(name, item)}
+        onSelectItem={(item) => setFieldValue(name, item)}
         selectedItem={values[name]}
         width={width}
       />
