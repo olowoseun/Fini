@@ -16,6 +16,8 @@ import MessagesScreen from './app/screens/MessagesScreen';
 import RegisterScreen from './app/screens/RegisterScreen';
 import ViewImageScreen from './app/screens/ViewImageScreen';
 import WelcomeScreen from './app/screens/WelcomeScreen';
+import { Formik } from 'formik'
+import ListingEditScreen from './app/screens/ListingEditScreen';
 
 const categories = [
   {
@@ -33,10 +35,9 @@ const categories = [
 ]
 
 export default function App() {
-  const [category, setCategory] = useState(categories[2]);
- 
+  
 
   return (
-    <MessagesScreen />
+    <ListingEditScreen />
   );
 }

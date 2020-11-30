@@ -7,10 +7,11 @@ import AppButton from '../components/AppButton'
 import AppTextInput from '../components/AppTextInput'
 import Screen from '../components/Screen'
 import AppText from '../components/AppText'
-import ErrorMessage from '../components/ErrorMessage'
-import AppFormField from '../components/AppFormField'
-import SubmitButton from '../components/SubmitButton'
-import AppForm from '../components/AppForm'
+import ErrorMessage from '../components/forms/ErrorMessage'
+import AppFormField from '../components/forms/AppFormField'
+import SubmitButton from '../components/forms/SubmitButton'
+import AppForm from '../components/forms/AppForm'
+import AppPicker from '../components/AppPicker'
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label('Email'),
@@ -48,6 +49,13 @@ export default function LoginScreen() {
             secureTextEntry={true}
             textContentType='password'
           /> 
+          <AppPicker
+            icon='apps'
+            placeholder='Category'
+            items={categories}
+            selectedItem={category}
+            onSelectItem={ category => setCategory(category) }
+          />
           <SubmitButton
             title='Sign in' 
           />
