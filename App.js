@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Switch, Text, TextInput, View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Button, Image, Switch, Text, TextInput, View } from 'react-native';
 import AppButton from './app/components/AppButton';
 import AppPicker from './app/components/AppPicker';
 import AppText from './app/components/AppText';
@@ -18,6 +18,8 @@ import ViewImageScreen from './app/screens/ViewImageScreen';
 import WelcomeScreen from './app/screens/WelcomeScreen';
 import { Formik } from 'formik'
 import ListingEditScreen from './app/screens/ListingEditScreen';
+import * as ImagePicker from 'expo-image-picker'
+import ImageInput from './app/components/ImageInput';
 
 const categories = [
   {
@@ -35,9 +37,14 @@ const categories = [
 ]
 
 export default function App() {
-  
+  const [imageUri, setImageUri] = useState();
 
   return (
-    <ListingEditScreen />
+    <Screen>
+      <ImageInput
+        imageUri={imageUri}
+        onChangeImage={uri => setImageUri(uri)}
+      />
+    </Screen>
   );
 }
