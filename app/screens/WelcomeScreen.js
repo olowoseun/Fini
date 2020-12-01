@@ -1,22 +1,23 @@
+import { NavigationContainer } from '@react-navigation/native';
 import React from 'react'
 import { View, ImageBackground, StyleSheet, Image, Text } from 'react-native'
 import AppButton from '../components/AppButton';
 
 import colors from '../config/colors';
 
-export default function WelcomeScreen() {
+export default function WelcomeScreen({ navigation }) {
   return (
     <ImageBackground
       blurRadius={2}
       style={styles.background}
       source={require('../assets/office_bg.jpg')}>
       <View style={styles.logoContainer}>
-        <Image style={styles.image} source={require('../assets/favicon.png')} />
+        <Image style={styles.image} source={require('../assets/logo_fini.png')} />
         <Text style={styles.tagline}>Sell what you don't need.</Text>
       </View>
       <View style={styles.buttonsBackground}>
-        <AppButton title='Sign in' onPress={() => alert('Sign in button tapped.')}/>
-        <AppButton title='Register' color='secondary'/>
+        <AppButton title='Sign in' onPress={() => navigation.navigate('Sign in')}/>
+        <AppButton title='Register' color='secondary' onPress={() => navigation.navigate('Register')}/>
       </View>
     </ImageBackground>
   )

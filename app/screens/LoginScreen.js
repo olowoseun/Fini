@@ -49,13 +49,6 @@ export default function LoginScreen() {
             secureTextEntry={true}
             textContentType='password'
           /> 
-          <AppPicker
-            icon='apps'
-            placeholder='Category'
-            items={categories}
-            selectedItem={category}
-            onSelectItem={ category => setCategory(category) }
-          />
           <SubmitButton
             title='Sign in' 
           />
