@@ -1,8 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Image, StyleSheet } from 'react-native'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
+import jwtDecode from 'jwt-decode'
 
+import usersApi from '../api/users'
+import authApi from '../api/auth'
+import AuthContext from '../auth/context'
+import authStorage from '../auth/storage'
 import AppButton from '../components/AppButton'
 import AppTextInput from '../components/AppTextInput'
 import Screen from '../components/Screen'
@@ -19,18 +24,39 @@ const validationSchema = Yup.object().shape({
 })
 
 export default function RegisterScreen() {
+  const {setUser} = useContext(AuthContext);
+  const [error, setError] = useState(false);
+
+  const handleSubmit = async (userInfo) => {
+    const response = await usersApi.register(userInfo);
+
+    console.log(response);
+    if(!response.ok) {
+      if(response.data) setError(response.data.error)
+      else {
+        setError('An unexpected error has occured.');
+        console.log(response);
+      }
+      return;
+    }
+
+    const {data: authToken} = await authApi.signin(userInfo.email, userInfo.password);
+    setUser(jwtDecode(authToken));
+    authStorage.storeToken(authToken);
+  }
 
   return (
     <Screen style={styles.screen}>
       <AppForm
-        initialValues={{ email: '', password: ''}}
-        onSubmit={ values => console.log(values) }
+        initialValues={{ name: '', email: '', password: ''}}
+        onSubmit={ handleSubmit }
         validationSchema={validationSchema}
       >
           <Image
             style={styles.logo}
             source={require('../assets/logo_fini.png')}
           />
+          <ErrorMessage error={error} visible={error} />
            <AppFormField
             autoCapitalize='none'
             autoCorrect={false}

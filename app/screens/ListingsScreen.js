@@ -35,7 +35,7 @@ export default function ListingsScreen({ navigation: { navigate }}) {
         <AppText>Couldn't retrieve listings from server.</AppText>
         <AppButton title='Retry' onPress={loadListings} />
       </> }
-      <AppActivityIndicator visible={true} />
+      {/* <AppActivityIndicator visible={loading} /> */}
       <FlatList
         data={listings}
         keyExtractor={listing => listing.id.toString()}

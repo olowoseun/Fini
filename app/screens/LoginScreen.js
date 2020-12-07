@@ -15,6 +15,7 @@ import SubmitButton from '../components/forms/SubmitButton'
 import AppForm from '../components/forms/AppForm'
 import AppPicker from '../components/AppPicker'
 import AuthContext from '../auth/context'
+import authStorage from '../auth/storage'
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label('Email'),
@@ -32,6 +33,7 @@ export default function LoginScreen() {
     setFailedLogin(false);
     const user = jwtDecode(response.data);
     setUser(user);
+    authStorage.storeToken(response.data);
   }
 
   return (

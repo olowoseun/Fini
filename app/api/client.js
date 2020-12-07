@@ -1,7 +1,7 @@
 import { create } from 'apisauce'
 
 const apiClient = create({
-  baseURL: 'http://192.168.8.100:9090/api'
+  baseURL: 'https://fini-backend.herokuapp.com/api'
 })
 
 export default apiClient;
