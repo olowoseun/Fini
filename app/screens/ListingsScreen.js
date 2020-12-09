@@ -8,23 +8,11 @@ import listingsApi from '../api/listings'
 import AppText from '../components/AppText'
 import AppButton from '../components/AppButton'
 import AppActivityIndicator from '../components/AppActivityIndicator'
+import useApi from '../hooks/useApi'
 
 export default function ListingsScreen({ navigation: { navigate }}) {
-  const [listings, setListings] = useState([]);
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const loadListings = async () => {
-    setLoading(true);
-    const response = await listingsApi.getListings();
-    setLoading(false);
-
-    if(!response.ok) return setError(true);
-      
-    setError(false);
-    setListings(response.data);
-  } 
-
+  const {data: listings, error, loading, request: loadListings } = useApi(listingsApi.getListings);
+  
   useEffect(() => {
     loadListings();
   }, [])
