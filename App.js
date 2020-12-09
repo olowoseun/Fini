@@ -28,25 +28,25 @@ export default function App() {
   if(!isReady)
     return <AppLoading startAsync={restoreUser} onFinish={() => setIsReady(true)} />
 
-  // const showNotification = async () => {
-  //   Notifications.setNotificationHandler({
-  //     handleNotification: async () => ({
-  //       shouldShowAlert: true,
-  //       shouldPlaySound: false,
-  //       shouldSetBadge: false,
-  //     })
-  //   });
+  const showNotification = async () => {
+    Notifications.setNotificationHandler({
+      handleNotification: async () => ({
+        shouldShowAlert: true,
+        shouldPlaySound: false,
+        shouldSetBadge: false,
+      })
+    });
     
-  //   Notifications.scheduleNotificationAsync({
-  //     content: {
-  //       title: 'Title',
-  //       body: 'Lorem ipsum dolor.'
-  //     },
-  //     trigger: {
-  //       seconds: 2
-  //     }
-  //   });
-  // }
+    Notifications.scheduleNotificationAsync({
+      content: {
+        title: 'Title',
+        body: 'Lorem ipsum dolor.'
+      },
+      trigger: {
+        seconds: 2
+      }
+    });
+  }
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>

@@ -23,7 +23,7 @@ export default function ListingsScreen({ navigation: { navigate }}) {
       
     setError(false);
     setListings(response.data);
-  }
+  } 
 
   useEffect(() => {
     loadListings();
