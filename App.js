@@ -11,6 +11,10 @@ import AppNavigator from './app/navigation/AppNavigator';
 import AuthContext from './app/auth/context';
 import authStorage from './app/auth/storage';
 import { AppLoading } from 'expo';
+import { navigationRef } from './app/navigation/rootNavigation'
+import AppButton from './app/components/AppButton'
+import Screen from './app/components/Screen'
+import * as Notifications from 'expo-notifications'
 
 export default function App() {
   const [user, setUser] = useState();
@@ -24,11 +28,35 @@ export default function App() {
   if(!isReady)
     return <AppLoading startAsync={restoreUser} onFinish={() => setIsReady(true)} />
 
+  // const showNotification = async () => {
+  //   Notifications.setNotificationHandler({
+  //     handleNotification: async () => ({
+  //       shouldShowAlert: true,
+  //       shouldPlaySound: false,
+  //       shouldSetBadge: false,
+  //     })
+  //   });
+    
+  //   Notifications.scheduleNotificationAsync({
+  //     content: {
+  //       title: 'Title',
+  //       body: 'Lorem ipsum dolor.'
+  //     },
+  //     trigger: {
+  //       seconds: 2
+  //     }
+  //   });
+  // }
+
   return (
     <AuthContext.Provider value={{ user, setUser }}>
-      <NavigationContainer theme={navigationTheme}>
+      <NavigationContainer ref={navigationRef} theme={navigationTheme}>
         {user ? <AppNavigator /> : <AuthNavigator />}
       </NavigationContainer>
     </AuthContext.Provider>   
+    // <Screen>
+    //   <AppButton title='Tap me' onPress={showNotification} />
+    // </Screen>
+
   );
 }

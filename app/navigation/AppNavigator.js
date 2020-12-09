@@ -9,6 +9,7 @@ import NewListingButton from './NewListingButton';
 import * as Notifications from 'expo-notifications'
 import * as Permissions from 'expo-permissions'
 import expoPushTokensApi from '../api/expoPushTokens'
+import navigation from './rootNavigation'
 
 const Tab = createBottomTabNavigator();
 
@@ -20,12 +21,15 @@ const AppNavigator = () => {
 
     const token = await Notifications.getExpoPushTokenAsync();
     expoPushTokensApi.register(token);
+    console.log(token);
   }
   
   useEffect(() => {
     registerForPushNotifications();
 
-    Notifications.addNotificationReceivedListener(notification => console.log(notification));
+    Notifications.addNotificationResponseReceivedListener(notification => {
+      navigation.navigate('Account');
+    });
   }, []);
 
   return (

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ActivityIndicator, FlatList, StyleSheet } from 'react-native'
+import { FlatList, StyleSheet } from 'react-native'
 
 import Screen from '../components/Screen'
 import Card from '../components/Card'
@@ -25,7 +25,7 @@ export default function ListingsScreen({ navigation: { navigate }}) {
     setListings(response.data);
   }
 
-  useEffect( () => {
+  useEffect(() => {
     loadListings();
   }, [])
 
@@ -35,7 +35,7 @@ export default function ListingsScreen({ navigation: { navigate }}) {
         <AppText>Couldn't retrieve listings from server.</AppText>
         <AppButton title='Retry' onPress={loadListings} />
       </> }
-      {/* <AppActivityIndicator visible={loading} /> */}
+      <AppActivityIndicator visible={loading} />
       <FlatList
         data={listings}
         keyExtractor={listing => listing.id.toString()}
