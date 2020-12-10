@@ -15,6 +15,8 @@ import { navigationRef } from './app/navigation/rootNavigation'
 import AppButton from './app/components/AppButton'
 import Screen from './app/components/Screen'
 import * as Notifications from 'expo-notifications'
+import NetInfo from '@react-native-community/netinfo'
+
 
 export default function App() {
   const [user, setUser] = useState();
@@ -25,6 +27,7 @@ export default function App() {
     if(user) setUser(user);
   }
 
+  NetInfo.addEventListener(netInfo => console.log(netInfo));
   if(!isReady)
     return <AppLoading startAsync={restoreUser} onFinish={() => setIsReady(true)} />
 

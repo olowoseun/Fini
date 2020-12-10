@@ -9,6 +9,7 @@ import PickerItem from '../components/PickerItem'
 import Screen from '../components/Screen'
 import useLocation from '../hooks/useLocation'
 import listingsApi from '../api/listings'
+import UploadScreen from './UploadScreen'
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label('Title'),
@@ -77,10 +78,15 @@ const categories = [
 
 export default function ListingEditScreen() {
   const location = useLocation();
+  const [uploadVisibility, setUploadVisibility] = useState(false);
+  const [progress, setProgress] = useState(0);
+
 
   const handleSubmit = async (listing) => {
-    const response = await listingsApi.addListing({...listing, location});
-   
+    setUploadVisibility(true);
+    const response = await listingsApi.addListing({...listing, location}, progress => setProgress(progress));
+    setUploadVisibility(false);
+
     if(!response.ok) return alert('Could not retrieve listings');
     
     alert('Success');
@@ -88,6 +94,7 @@ export default function ListingEditScreen() {
 
   return (
     <Screen style={styles.screen}>
+      <UploadScreen progress={progress} visible={uploadVisibility} />
       <AppForm
         initialValues={{
           title: '',
@@ -116,7 +123,7 @@ export default function ListingEditScreen() {
           items={categories}
           name='category'
           numberOfColumns={3}
-          PickerItemComponent={PickerItem}
+          PickerItemComponent={CategoryPickerItem}
           placeholder='Category'
           width='50%'
         />

@@ -30,7 +30,6 @@ export default function RegisterScreen() {
   const handleSubmit = async (userInfo) => {
     const response = await usersApi.register(userInfo);
 
-    console.log(response);
     if(!response.ok) {
       if(response.data) setError(response.data.error)
       else {
