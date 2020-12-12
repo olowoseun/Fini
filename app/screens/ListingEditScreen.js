@@ -10,6 +10,7 @@ import Screen from '../components/Screen'
 import useLocation from '../hooks/useLocation'
 import listingsApi from '../api/listings'
 import UploadScreen from './UploadScreen'
+import FormPicker from '../components/forms/FormPicker'
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label('Title'),
@@ -82,19 +83,25 @@ export default function ListingEditScreen() {
   const [progress, setProgress] = useState(0);
 
 
-  const handleSubmit = async (listing) => {
+  const handleSubmit = async (listing, { resetForm }) => {
+    setProgress(0);
     setUploadVisibility(true);
     const response = await listingsApi.addListing({...listing, location}, progress => setProgress(progress));
-    setUploadVisibility(false);
 
-    if(!response.ok) return alert('Could not retrieve listings');
-    
-    alert('Success');
+    if(!response.ok) {
+      setUploadVisibility(false);
+      return alert('Could not retrieve listings');
+    } 
+  
+    resetForm();
   }
 
   return (
     <Screen style={styles.screen}>
-      <UploadScreen progress={progress} visible={uploadVisibility} />
+      <UploadScreen 
+        onDone={() => setUploadVisibility(false)}
+        progress={progress} 
+        visible={uploadVisibility} />
       <AppForm
         initialValues={{
           title: '',
@@ -120,6 +127,7 @@ export default function ListingEditScreen() {
           width={120}
         />
         <AppFormPicker
+          icon='apps'
           items={categories}
           name='category'
           numberOfColumns={3}
@@ -127,6 +135,7 @@ export default function ListingEditScreen() {
           placeholder='Category'
           width='50%'
         />
+        {/* <FormPicker items={categories} name='category' /> */}
         <AppFormField
           maxLength={255}
           multiline
