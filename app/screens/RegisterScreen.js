@@ -41,6 +41,7 @@ export default function RegisterScreen() {
 
     const {data: authToken} = await authApi.signin(userInfo.email, userInfo.password);
     setUser(jwtDecode(authToken));
+    console.log(jwtDecode(authToken));
     authStorage.storeToken(authToken);
   }
 
@@ -53,7 +54,7 @@ export default function RegisterScreen() {
       >
           <Image
             style={styles.logo}
-            source={require('../assets/logo_fini.png')}
+            source={require('../assets/logo-primary.png')}
           />
           <ErrorMessage error={error} visible={error} />
            <AppFormField
@@ -92,13 +93,14 @@ export default function RegisterScreen() {
 
 const styles = StyleSheet.create({
   logo: {
-    width: 80,
-    height: 80,
+    width: 100,
+    height: 100,
     alignSelf: 'center',
     marginTop: 50,
     marginBottom: 20
   },
   screen: {
-    padding: 15
+    padding: 15,
+    paddingTop: 0
   }
 })

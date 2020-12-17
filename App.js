@@ -15,19 +15,27 @@ import { navigationRef } from './app/navigation/rootNavigation'
 import AppButton from './app/components/AppButton'
 import Screen from './app/components/Screen'
 import * as Notifications from 'expo-notifications'
-import NetInfo from '@react-native-community/netinfo'
-
+import NetInfo, { useNetInfo } from '@react-native-community/netinfo'
 
 export default function App() {
   const [user, setUser] = useState();
   const [isReady, setIsReady] = useState(false);
+
+  // NetInfo.fetch().then(netInfo => console.log(netInfo));
+
+  // const unsubscribe = NetInfo.addEventListener(netInfo => console.log(netInfo));
+
+  const netInfo = useNetInfo();
+
+  console.log(netInfo.isInternetReachable);
+
+
 
   const restoreUser = async () => {
     const user = await authStorage.getUser()
     if(user) setUser(user);
   }
 
-  NetInfo.addEventListener(netInfo => console.log(netInfo));
   if(!isReady)
     return <AppLoading startAsync={restoreUser} onFinish={() => setIsReady(true)} />
 
@@ -58,7 +66,7 @@ export default function App() {
       </NavigationContainer>
     </AuthContext.Provider>   
     // <Screen>
-    //   <AppButton title='Tap me' onPress={showNotification} />
+    //   <AppButton title='Tap me' onPress={showNotification} disable={netInfo.isInternetReachable} />
     // </Screen>
 
   );

@@ -1,5 +1,6 @@
 import { create } from 'apisauce'
 import authStorage from '../auth/storage'
+import cache from '../utility/cache';
 
 const apiClient = create({
   baseURL: 'https://fini-backend.herokuapp.com/api'
@@ -11,5 +12,19 @@ apiClient.addAsyncRequestTransform( async (request) => {
 
   request.headers['x-auth-token'] = authToken;
 });
+
+const get = apiClient.get;
+
+apiClient.get = async (url, params, axiosConfig) => {
+  const response = await get(url, params, axiosConfig);
+  
+  if(response.ok) {
+    cache.store(url, response.data);
+    return response;
+  }
+
+  const data = await cache.get(url);
+  return data ? { ok: true, response} : response;
+}
 
 export default apiClient;

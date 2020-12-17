@@ -40,7 +40,7 @@ export default ContactSellerForm = ({ listing }) => {
   }
 
   return (
-    <View style={{ padding: 20 }}>
+    <View style={{ padding: 20, paddingTop: 0 }}>
       <AppForm
         initialValues={{ message: '' }}
         onSubmit={ handleSubmit }

@@ -9,7 +9,7 @@ export default function AppTextInput({icon, width='100%', ...otherProps}) {
     <View style={[styles.container, {width}]}>
       {icon && <MaterialCommunityIcons name={icon} size={20} color={defaultStyles.colors.darkGrey} style={styles.icon} />}
       <TextInput 
-        style={defaultStyles.text} 
+        style={[defaultStyles.text, { flex: 1 }]} 
         placeholderTextColor={ defaultStyles.colors.mediumGrey }
         {...otherProps} />
     </View>

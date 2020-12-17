@@ -6,6 +6,7 @@ import defaultStyles from '../config/styles'
 import AppText from './AppText'
 import Screen from './Screen'
 import PickerItem from './PickerItem'
+import colors from '../config/colors'
 
 export default function AppPicker({icon, items, numberOfColumns=1, onSelectItem, placeholder, PickerItemComponent=PickerItem, selectedItem, width='100%'}) {
 
@@ -62,6 +63,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   text: {
-    flex: 1
+    flex: 1,
+    color: colors.black
   }
 })

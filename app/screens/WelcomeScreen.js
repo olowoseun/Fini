@@ -12,7 +12,7 @@ export default function WelcomeScreen({ navigation }) {
       style={styles.background}
       source={require('../assets/office_bg.jpg')}>
       <View style={styles.logoContainer}>
-        <Image style={styles.image} source={require('../assets/logo_fini.png')} />
+        <Image style={styles.image} source={require('../assets/logo-primary.png')} />
         <Text style={styles.tagline}>Sell what you don't need.</Text>
       </View>
       <View style={styles.buttonsBackground}>
@@ -46,8 +46,8 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   image: {
-    width: 50,
-    height: 50
+    width: 100,
+    height: 100
   },
   registerButton: {
     backgroundColor: colors.secondary,

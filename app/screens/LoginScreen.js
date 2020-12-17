@@ -1,19 +1,14 @@
 import React, { useContext, useState } from 'react'
 import { Image, StyleSheet } from 'react-native'
-import { Formik } from 'formik'
 import * as Yup from 'yup'
 import jwtDecode from 'jwt-decode'
 
 import authApi from '../api/auth'
-import AppButton from '../components/AppButton'
-import AppTextInput from '../components/AppTextInput'
 import Screen from '../components/Screen'
-import AppText from '../components/AppText'
 import ErrorMessage from '../components/forms/ErrorMessage'
 import AppFormField from '../components/forms/AppFormField'
 import SubmitButton from '../components/forms/SubmitButton'
 import AppForm from '../components/forms/AppForm'
-import AppPicker from '../components/AppPicker'
 import AuthContext from '../auth/context'
 import authStorage from '../auth/storage'
 
@@ -45,7 +40,7 @@ export default function LoginScreen() {
       >
           <Image
             style={styles.logo}
-            source={require('../assets/logo_fini.png')}
+            source={require('../assets/logo-primary.png')}
           />
           <ErrorMessage error='Invalid email and/or password.' visible={failedLogin} />
           <AppFormField
@@ -77,13 +72,14 @@ export default function LoginScreen() {
 
 const styles = StyleSheet.create({
   logo: {
-    width: 80,
-    height: 80,
+    width: 100,
+    height: 100,
     alignSelf: 'center',
     marginTop: 50,
     marginBottom: 20
   },
   screen: {
-    padding: 15
+    padding: 15,
+    paddingTop: 0
   }
 })
